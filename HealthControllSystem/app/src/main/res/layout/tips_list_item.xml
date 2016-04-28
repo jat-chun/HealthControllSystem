@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.example.healthcontrollsystem.view.CircularImageView
+            android:id="@+id/civ_tips_logo"
+            android:layout_width="45dp"
+            android:layout_margin="10dp"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:id="@+id/tv_tips_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divier_height"
+        android:background="@color/divier" />
+
+</LinearLayout>

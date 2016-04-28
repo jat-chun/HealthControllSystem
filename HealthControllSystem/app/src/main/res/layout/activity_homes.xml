@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/home_head" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#eaeaea" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_home_page_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#eaeaea" />
+
+    <RadioGroup
+        android:id="@+id/rg_groups"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@color/head_back_color"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp" >
+
+        <RadioButton
+            android:id="@+id/rb_bluetooth"
+            style="@style/Bottom_Tab"
+            android:drawableTop="@drawable/selector_biggod"
+            android:text="@string/tab_bluetooth" />
+
+        <RadioButton
+            android:id="@+id/rb_data_center"
+            style="@style/Bottom_Tab"
+            android:drawableTop="@drawable/selector_tools"
+            android:text="@string/tab_data_center" />
+
+        <RadioButton
+            android:id="@+id/rb_personal"
+            style="@style/Bottom_Tab"
+            android:drawableTop="@drawable/selector_personal"
+            android:text="@string/tab_personal" />
+    </RadioGroup>
+
+</LinearLayout>

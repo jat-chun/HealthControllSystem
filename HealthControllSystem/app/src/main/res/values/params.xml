@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- comment -->
+    <dimen name="divier_height">0.5dp</dimen>
+    <!-- head -->
+    <dimen name="head_padding_left">10dp</dimen>
+</resources>

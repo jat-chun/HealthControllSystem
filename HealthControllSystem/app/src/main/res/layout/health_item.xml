@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp" 
+        android:orientation="horizontal">
+
+        <com.example.healthcontrollsystem.view.CircularImageView
+            android:id="@+id/iv_health_item_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/six" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_health_item_cankao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="正常血压参考值为60-130" />
+
+            <TextView
+                android:id="@+id/tv_health_item_real"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="您的血压为65-90" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_health_item_jianyi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="您的血压在正常范围内哦" />
+
+    <TextView
+        android:id="@+id/tv_health_item_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="13sp"
+        android:paddingRight="10dp"
+        android:textStyle="italic"
+        android:text="血压主要靠食物和运动来调节，几多少吃高热量的食物，多吃蔬菜，多跑步打球运动，这样你的血压才可以得到正常哦" />
+
+    <View android:layout_width="fill_parent"
+        android:layout_height="@dimen/divier_height"
+        android:layout_marginTop="2dp"
+        android:background="@color/divier"/>
+</LinearLayout>

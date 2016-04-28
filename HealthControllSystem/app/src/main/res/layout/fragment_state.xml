@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.beardedhen.androidbootstrap.AwesomeTextView
+                android:id="@+id/atv_state_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="我的状态"
+                android:textSize="25sp"
+                app:bootstrapBrand="success"
+                android:layout_gravity="center" />
+
+            <com.github.glomadrian.dashedcircularprogress.DashedCircularProgress
+                android:id="@+id/dcpg_state_step_count"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:external_color="@color/bootstrap_brand_primary"
+                app:base_color="@color/bootstrap_brand_warning"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:progress_color="@color/bootstrap_brand_success"
+                app:min="0"
+                app:max="2499"
+                app:duration="1000"
+                app:progress_stroke_width="80"
+                >
+
+                <com.beardedhen.androidbootstrap.AwesomeTextView
+                    android:id="@+id/atv_state_step_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="10000"
+                    android:textSize="35sp"
+                    app:bootstrapBrand="success"
+                    />
+            </com.github.glomadrian.dashedcircularprogress.DashedCircularProgress>
+
+            <com.beardedhen.androidbootstrap.BootstrapLabel
+                android:id="@+id/bl_state_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="预定运动25000步，您已走1000，完成65%"
+                app:roundedCorners="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                app:bootstrapBrand="info"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divier_height"
+                android:background="@color/divier"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"></View>
+
+            <TextView
+                android:id="@+id/tv_state_kalilu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="消耗卡里路10000"
+                android:gravity="center"
+                android:textColor="#7bbbf6" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divier_height"
+                android:background="@color/divier"
+                android:layout_margin="10dp"></View>
+
+            <TextView
+                android:id="@+id/tv_state_health_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="体重120"
+                android:gravity="center"
+                android:textColor="#7bbbf6" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divier_height"
+                android:background="@color/divier"
+                android:layout_margin="10dp"></View>
+
+            <TextView
+                android:id="@+id/tv_state_health_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="健身小技巧"
+                android:gravity="center"
+                android:textColor="#7bbbf6" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divier_height"
+                android:background="@color/divier"
+                android:layout_margin="10dp"></View>
+
+            <TextView
+                android:id="@+id/tv_edit_plan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改预定目标"
+                android:gravity="center"
+                android:textColor="#7bbbf6"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

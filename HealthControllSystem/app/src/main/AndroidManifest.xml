@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.healthcontrollsystem">
+
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.xiaomi.permission.AUTH_SERVICE" />
+
+    <application
+        android:name="com.example.healthcontrollsystem.commemt.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.healthcontrollsystem.activity.WelcomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.LoginActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.MainActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.HomesActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.RegisterActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.DetailsActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.EditPersonalDetailsActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.HealthActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.HealthTipsListActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.TipsActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.AboutUsActivity" >
+        </activity>
+        <activity android:name="com.example.healthcontrollsystem.activity.HealthCanKaoActivity" >
+        </activity>
+        <activity android:name=".activity.PlanActivity"></activity>
+
+        <service android:name="com.example.healthcontrollsystem.service.UserInformationService" >
+        </service>
+        <service android:name=".service.AutoSaveService"></service>
+        <service android:name=".service.StepService"></service>
+
+        <!--//系统时间发生改变时自动通知-->
+        <receiver android:name=".receiver.AutoSaveReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED"></action>
+            </intent-filter>
+        </receiver>
+        <!--开机自动开启计步器-->
+        <receiver android:name=".receiver.BootStartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

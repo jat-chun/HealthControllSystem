@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="divier">#eaeaea</color>
+    <color name="transparent">#00000000</color>
+    <color name="orange_3">#f1971e</color>
+    <color name="gray_1">#666666</color>
+    <color name="head_background">#9a9a9a</color>
+    <color name="blue">#0079ff</color>
+    <color name="grey">#C1CDCD</color>
+    <color name="yellow">#ff7300</color>
+    <color name="green">#a0b718</color>
+    <color name="black">#333333</color>
+    <color name="black_divider">#33888888</color>
+    <color name="head_back_color">#00C80D</color>
+    
+</resources>

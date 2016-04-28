@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/head_back_color"
+    android:orientation="horizontal" >
+
+    <com.example.healthcontrollsystem.view.CircularImageView
+        android:id="@+id/civ_homes_image"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
+    <TextView android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="健康系统"/>
+    
+    <TextView
+        android:id="@+id/tv_home_head_login_register"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="登录" />
+
+</LinearLayout>
