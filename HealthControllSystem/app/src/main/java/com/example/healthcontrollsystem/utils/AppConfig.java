@@ -2,7 +2,7 @@ package com.example.healthcontrollsystem.utils;
 
 public class AppConfig {
 	
-	public static String BASE_URL = "http://192.168.1.101:8080/HealthServer/";
+	public static String BASE_URL = "http://192.168.1.114:8080/HealthServer/";
 
 	public static String SHAREPREFERENCE = "userinfo_pref";
 	public static String LOGIN = "login";

@@ -18,6 +18,11 @@ import com.example.healthcontrollsystem.domain.Health;
 import com.example.healthcontrollsystem.domain.OneStatusEntity;
 import com.example.healthcontrollsystem.domain.Record;
 import com.example.healthcontrollsystem.domain.TwoStatusEntity;
+import com.example.healthcontrollsystem.utils.AppConfig;
+import com.example.healthcontrollsystem.utils.KaliluUtils;
+import com.example.healthcontrollsystem.utils.RSharePreference;
+import com.example.healthcontrollsystem.utils.StepDetector;
+import com.example.healthcontrollsystem.utils.ToastUtils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.data.BarData;
@@ -32,7 +37,7 @@ public class DataCenterFragment extends Fragment{
 	View view;
 
 	LayoutInflater inflater ;
-	
+
 	private ExpandableListView elv_data_list;
 	
 	private List<OneStatusEntity> oneList;
@@ -70,15 +75,14 @@ public class DataCenterFragment extends Fragment{
 		entries.add(new BarEntry(15000,2));
 		entries.add(new BarEntry(2000,3));
 		entries.add(new BarEntry(25000,4));
-		entries.add(new BarEntry(20000,5));
-		entries.add(new BarEntry(8000,6));
+		entries.add(new BarEntry(StepDetector.CURRENT_STEP,5));
+		ToastUtils.showToast(RSharePreference.getInt(AppConfig.STEP_TOTAL,getActivity())+"",getActivity());
 		labels.add("星期一");
 		labels.add("星期二");
 		labels.add("星期三");
 		labels.add("星期四");
 		labels.add("星期五");
 		labels.add("星期六");
-		labels.add("星期日");
 		dataSet = new BarDataSet(entries,"步行数");
 		data = new BarData(labels,dataSet);
 		dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -118,7 +122,21 @@ public class DataCenterFragment extends Fragment{
 
 		List<Record> twoList = new ArrayList<>();
 		for (int i=0 ; i<6 ; i++){
-			Record record = new Record(i,10000,5000,20,"2016年4月20","星期一");
+			Record record = null;
+			if (i==0){
+				record  = new Record(i,StepDetector.CURRENT_STEP, KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),StepDetector.CURRENT_STEP),KaliluUtils.distance(StepDetector.CURRENT_STEP),"2016年4月30","星期六");
+			}else if (i==1){
+				record = new Record(i,25000,KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),25000),KaliluUtils.distance(25000),"2016年4月29","星期五");
+			}else if (i==2){
+				record = new Record(i,2000,KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),2000),KaliluUtils.distance(2000),"2016年4月28","星期四");
+			}else if (i==3){
+				record = new Record(i,15000,KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),15000),KaliluUtils.distance(15000),"2016年4月27","星期三");
+			}else if (i==4){
+				record = new Record(i,5000,KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),5000),KaliluUtils.distance(5000),"2016年4月26","星期二");
+			}else if (i==5){
+				record = new Record(i,10000,KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,getActivity()),10000),KaliluUtils.distance(10000),"2016年4月25","星期一");
+			}
+
 			twoList.add(record);
 		}
 

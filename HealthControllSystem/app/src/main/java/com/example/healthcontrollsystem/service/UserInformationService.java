@@ -55,6 +55,7 @@ public class UserInformationService extends Service {
 //				RSharePreference.putString("user_sex", jsonObject.getString("user_sex"), TAG);
 //				RSharePreference.putInt("user_age", jsonObject.getInt("user_age"), TAG);
 				RSharePreference.putInt("id", jsonObject.getInt("id"), TAG);
+				RSharePreference.putString("id", jsonObject.getString("user_name"), TAG);
 				RSharePreference.putFloat(AppConfig.WEIGHT,(float)jsonObject.getDouble("user_weight"),TAG);
 
 				User user = new User(jsonObject.getInt("id"),jsonObject.getString("user_name"),jsonObject.getString("user_password"),jsonObject.getString("user_image"),jsonObject.getInt("user_age"),

@@ -1,10 +1,12 @@
 package com.example.healthcontrollsystem.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 
 import com.example.healthcontrollsystem.utils.AppConfig;
@@ -20,6 +22,8 @@ public class StepService extends Service {
     private SensorManager sensorManager;
     //检测计步类
     private StepDetector stepDetector;
+    private PowerManager powerManager;//电源管理服务
+    private PowerManager.WakeLock wakeLock;//屏幕灯
 
     @Nullable
     @Override
@@ -52,7 +56,12 @@ public class StepService extends Service {
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //此方法用来注册，只有注册过才会生效，参数：SensorEventListener的实例，Sensor的实例，更新速率
         sensorManager.registerListener(stepDetector,sensor,SensorManager.SENSOR_DELAY_FASTEST);
+        //电源管理服务
+        powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK|PowerManager.ACQUIRE_CAUSES_WAKEUP,"jat");
+        wakeLock.acquire();
     }
+
 
     @Override
     public void onDestroy() {
@@ -61,5 +70,6 @@ public class StepService extends Service {
         if (stepDetector!=null){
             sensorManager.unregisterListener(stepDetector);
         }
+        wakeLock.release();
     }
 }

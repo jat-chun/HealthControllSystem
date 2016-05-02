@@ -53,7 +53,7 @@ public class LoginActivity extends SmartActivity {
 	//密码
 	private EditText et_login_password;
 	//是否记住密码
-//	private CheckBox cb_login_remember;
+	private CheckBox cb_login_remember;
 	//请求头编码格式
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -63,15 +63,16 @@ public class LoginActivity extends SmartActivity {
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg) {
 			String result = (String) msg.obj;
+//			ToastUtils.showToast(result,LoginActivity.this);
 			JSONObject jsonObject;
 			try {
 				jsonObject = new JSONObject(result);
 				//登录成功
 				if (jsonObject.getString("result").equals("success")) {
-//					if (cb_login_remember.isChecked()) {
+					if (cb_login_remember.isChecked()) {
 						savePreferenceString("user_name", et_login_name.getText().toString());
 						savePreferenceBoolean(AppConfig.LOGIN, true);
-//					}
+					}
 					gotoActivity(HomesActivity.class, true);
 					Intent intent = new Intent(LoginActivity.this, UserInformationService.class);
 //					intent.putExtra("remember", cb_login_remember.isChecked());
@@ -91,10 +92,10 @@ public class LoginActivity extends SmartActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//		if (RSharePreference.getBoolean(AppConfig.LOGIN, this)) {
-		//			startActivity(new Intent(this, HomesActivity.class));
-		//			finish();
-		//		}
+		if (RSharePreference.getBoolean(AppConfig.LOGIN, this)) {
+			startActivity(new Intent(this, HomesActivity.class));
+			finish();
+		}
 		setContentView(R.layout.activity_login);
 		init();
 
@@ -138,18 +139,18 @@ public class LoginActivity extends SmartActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				RSharePreference.putBoolean(AppConfig.LOGIN, true, getApplicationContext());
-				Intent intent = new Intent(LoginActivity.this, HomesActivity.class);
-				startActivity(intent);
-				finish();
-//				if (!et_login_name.getText().toString().equals("")&&!et_login_password.getText().toString().equals("")) {
-//					try {
-//						login();
-//					} catch (JSONException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
+//				RSharePreference.putBoolean(AppConfig.LOGIN, true, getApplicationContext());
+//				Intent intent = new Intent(LoginActivity.this, HomesActivity.class);
+//				startActivity(intent);
+//				finish();
+				if (!et_login_name.getText().toString().equals("")&&!et_login_password.getText().toString().equals("")) {
+					try {
+						login();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 	}
@@ -164,6 +165,7 @@ public class LoginActivity extends SmartActivity {
 		String user_password = et_login_password.getText().toString();
 		object.put("user_name", user_name);
 		object.put("user_password", user_password);
+
 		Thread thread = new Thread(new Runnable() {
 			
 			@Override
@@ -172,7 +174,7 @@ public class LoginActivity extends SmartActivity {
 				RequestBody body = RequestBody.create(JSON, object.toString());
 
 				Request request = new Request.Builder()
-				.url(AppConfig.BASE_URL+AppConfig.REGISTER)
+				.url(AppConfig.BASE_URL+AppConfig.USER_LOGIN)
 				.post(body)
 				.build();
 
@@ -195,6 +197,7 @@ public class LoginActivity extends SmartActivity {
 				handler.sendMessage(message);
 			}
 		});
+		thread.start();
 	}
 
 }

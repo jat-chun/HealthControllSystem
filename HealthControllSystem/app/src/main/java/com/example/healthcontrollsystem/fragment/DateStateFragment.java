@@ -85,7 +85,7 @@ public class DateStateFragment extends Fragment {
 		initView();
 		initMotion();
 		stepListener();
-		ToastUtils.showToast(RSharePreference.getString(AppConfig.DATE,getActivity()),getActivity());
+//		ToastUtils.showToast(RSharePreference.getString(AppConfig.DATE,getActivity()),getActivity());
 		return view;
 	}
 

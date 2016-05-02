@@ -64,12 +64,11 @@ public class PersonalFragment extends Fragment{
 	
 	private void initMotion(){
 		if (RSharePreference.getString("user_image", getActivity())==null) {
-			isLogin = true;
 			ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.ic_bleed, civ_personal_image);
 		}else {
 			ImageLoader.getInstance().displayImage(RSharePreference.getString("user_image", getActivity()), civ_personal_image);
 		}
-		if (isLogin) {
+		if (RSharePreference.getBoolean(AppConfig.LOGIN,getActivity())) {
 			tv_personal_user_name.setText(RSharePreference.getString("user_name", getActivity()));
 		}else {
 			tv_personal_user_name.setText("请登录");
