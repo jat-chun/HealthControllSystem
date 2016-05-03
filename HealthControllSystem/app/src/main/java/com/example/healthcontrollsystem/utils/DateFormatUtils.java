@@ -3,8 +3,19 @@ package com.example.healthcontrollsystem.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateFormatUtils {
+
+
+	private static Calendar calendar;
+
+	public static Calendar getCanlender(){
+			calendar = Calendar.getInstance();
+			//设置时区
+			calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		return calendar;
+	}
 
 	/**
 	 * 返回完整时间
@@ -56,7 +67,9 @@ public class DateFormatUtils {
 	 * @return
      */
 	public static String weekFormat(){
-		Calendar calendar = Calendar.getInstance();
+		if (calendar==null){
+			calendar = getCanlender();
+		}
 		String mWay;
 		mWay = String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
 		if("1".equals(mWay)){

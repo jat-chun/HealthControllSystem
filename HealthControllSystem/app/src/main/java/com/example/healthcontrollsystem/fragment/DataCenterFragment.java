@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.andview.refreshview.XRefreshView;
 import com.example.healthcontrollsystem.R;
 import com.example.healthcontrollsystem.adapter.ExpandableListAdapter;
 import com.example.healthcontrollsystem.domain.Health;
@@ -39,6 +41,8 @@ public class DataCenterFragment extends Fragment{
 	LayoutInflater inflater ;
 
 	private ExpandableListView elv_data_list;
+
+	private XRefreshView xrv_data_center;
 	
 	private List<OneStatusEntity> oneList;
 	
@@ -63,10 +67,57 @@ public class DataCenterFragment extends Fragment{
 		view = inflater.inflate(R.layout.fragment_data_center, null);
 		elv_data_list = (ExpandableListView) view.findViewById(R.id.elv_data_list);
 		bc_data_center = (BarChart) view.findViewById(R.id.bc_data_center);
+		xrv_data_center = (XRefreshView)view.findViewById(R.id.xrv_data_center);
+		refresh();
 //		elv_data_list.
 		putInitData();
 		init2();
 		return view;
+	}
+
+	/**
+	 * 刷新设置
+	 */
+	public void refresh(){
+		//设置是否可以上下拉刷新
+		xrv_data_center.setPullLoadEnable(true);
+		xrv_data_center.setPullRefreshEnable(true);
+		//设置是否可以自动刷新
+		xrv_data_center.setAutoRefresh(true);
+		xrv_data_center.setAutoLoadMore(true);
+		xrv_data_center.restoreLastRefreshTime(System.currentTimeMillis());
+		xrv_data_center.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
+			@Override
+			public void onRefresh() {
+				new Handler().postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						xrv_data_center.stopRefresh();
+					}
+				}, 2000);
+			}
+			@Override
+			public void onLoadMore(boolean isSlience) {
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						xrv_data_center.stopLoadMore();
+					}
+				}, 2000);
+			}
+
+			@Override
+			public void onRelease(float direction) {
+				super.onRelease(direction);
+				if (direction > 0) {
+					ToastUtils.showToast("下拉",getActivity());
+				} else {
+					ToastUtils.showToast("上拉",getActivity());
+				}
+			}
+		});
+
 	}
 
 	private void init2(){

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,15 +11,24 @@
         android:layout_height="210dp"
         android:layout_margin="10dp"></com.github.mikephil.charting.charts.BarChart>
 
-    <ExpandableListView
-        android:id="@+id/elv_data_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#ffffff"
-        android:cacheColorHint="#00000000"
-        android:childDivider="@drawable/list_line"
-        android:divider="@null"
-        android:listSelector="#00000000" >
-    </ExpandableListView>
+    <com.andview.refreshview.XRefreshView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/xrv_data_center"
+        app:isHeightMatchParent="true"
+        app:isWidthMatchParent="true"
+        android:orientation="vertical">
+        <ExpandableListView
+            android:id="@+id/elv_data_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:cacheColorHint="#00000000"
+            android:childDivider="@drawable/list_line"
+            android:divider="@null"
+            android:listSelector="#00000000" >
+        </ExpandableListView>
+    </com.andview.refreshview.XRefreshView>
+
 
 </LinearLayout>

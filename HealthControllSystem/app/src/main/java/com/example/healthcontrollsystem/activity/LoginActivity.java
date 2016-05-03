@@ -139,18 +139,18 @@ public class LoginActivity extends SmartActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-//				RSharePreference.putBoolean(AppConfig.LOGIN, true, getApplicationContext());
-//				Intent intent = new Intent(LoginActivity.this, HomesActivity.class);
-//				startActivity(intent);
-//				finish();
-				if (!et_login_name.getText().toString().equals("")&&!et_login_password.getText().toString().equals("")) {
-					try {
-						login();
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+				RSharePreference.putBoolean(AppConfig.LOGIN, true, getApplicationContext());
+				Intent intent = new Intent(LoginActivity.this, HomesActivity.class);
+				startActivity(intent);
+				finish();
+//				if (!et_login_name.getText().toString().equals("")&&!et_login_password.getText().toString().equals("")) {
+//					try {
+//						login();
+//					} catch (JSONException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
 			}
 		});
 	}
