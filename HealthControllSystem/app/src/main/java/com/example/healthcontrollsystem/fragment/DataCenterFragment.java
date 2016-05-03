@@ -40,22 +40,25 @@ public class DataCenterFragment extends Fragment{
 
 	LayoutInflater inflater ;
 
+	//时间轴列表
 	private ExpandableListView elv_data_list;
-
+	//上下拉刷新XRefreshView
 	private XRefreshView xrv_data_center;
-	
+	//时间轴的一级列表
 	private List<OneStatusEntity> oneList;
 	
 	private String TAG = "DataCenterFragment";
-
+	//柱形图
 	private BarChart bc_data_center;
-
+	//柱形图实体类
 	private List<BarEntry> entries = new ArrayList<BarEntry>();
-
+	//柱形图label
 	private List<String> labels = new ArrayList<>();
+	//时间轴适配器
 	private ExpandableListAdapter adapter;
-
+	//柱形图数据集
 	private BarDataSet dataSet;
+	//柱形图数据
 	private BarData data;
 
 
@@ -85,13 +88,16 @@ public class DataCenterFragment extends Fragment{
 		//设置是否可以自动刷新
 		xrv_data_center.setAutoRefresh(true);
 		xrv_data_center.setAutoLoadMore(true);
+		//设置最迟刷新时间
 		xrv_data_center.restoreLastRefreshTime(System.currentTimeMillis());
+		//刷新监听
 		xrv_data_center.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
 			@Override
 			public void onRefresh() {
 				new Handler().postDelayed(new Runnable() {
 					@Override
 					public void run() {
+						//停止下拉刷新
 						xrv_data_center.stopRefresh();
 					}
 				}, 2000);
@@ -102,6 +108,7 @@ public class DataCenterFragment extends Fragment{
 
 					@Override
 					public void run() {
+						//停止上拉刷新
 						xrv_data_center.stopLoadMore();
 					}
 				}, 2000);
