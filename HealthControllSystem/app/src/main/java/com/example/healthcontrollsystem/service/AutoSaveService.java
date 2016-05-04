@@ -6,10 +6,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.example.healthcontrollsystem.utils.AppConfig;
 import com.example.healthcontrollsystem.utils.DateFormatUtils;
+import com.example.healthcontrollsystem.utils.KaliluUtils;
 import com.example.healthcontrollsystem.utils.OkHttpUtil;
 import com.example.healthcontrollsystem.utils.RSharePreference;
 import com.example.healthcontrollsystem.utils.StepDetector;
@@ -21,10 +21,7 @@ import com.squareup.okhttp.Response;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,11 +76,12 @@ public class AutoSaveService extends Service {
             List<BasicNameValuePair> params = new ArrayList<>();
             //将用户id，步数，日期，卡里路等上传到服务器
             params.add(new BasicNameValuePair(AppConfig.USER_ID,RSharePreference.getString(AppConfig.USER_ID,AutoSaveService.this)));
-            params.add(new BasicNameValuePair(AppConfig.STEP_TOTAL, StepDetector.CURRENT_STEP+""));
+            params.add(new BasicNameValuePair("step", StepDetector.CURRENT_STEP+""));
             params.add(new BasicNameValuePair(AppConfig.DATE,DateFormatUtils.dateFormat(System.currentTimeMillis())));
             params.add(new BasicNameValuePair(AppConfig.WEEK,DateFormatUtils.weekFormat()));
+            params.add(new BasicNameValuePair("distance", KaliluUtils.distance(StepDetector.CURRENT_STEP)+""));
             //开启异步服务器提交数据
-            OkHttpUtil.enqueue(OkHttpUtil.requestPost(AppConfig.BASE_URL, params), new Callback() {
+            OkHttpUtil.enqueue(OkHttpUtil.requestPostJson(AppConfig.BASE_URL, params), new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
 

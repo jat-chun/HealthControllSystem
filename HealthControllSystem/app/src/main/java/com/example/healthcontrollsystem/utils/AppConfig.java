@@ -28,7 +28,11 @@ public class AppConfig {
 	public static String REGISTER = "RegistersServlet";
 	//登录
 	public static String USER_LOGIN = "LoginServlet";
-	
+	//分页获取记录
+	public static String GETRECORDLIST = "GetRecordList";
+	//添加记录
+	public static String ADD_RECORD = "AddRecordServlet";
+
 	//mac_key
 	public static String MAC_KEY = "mac_key";
 	//call_id

@@ -1,13 +1,13 @@
 package com.example.healthcontrollsystem.fragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +16,11 @@ import android.widget.ExpandableListView;
 import com.andview.refreshview.XRefreshView;
 import com.example.healthcontrollsystem.R;
 import com.example.healthcontrollsystem.adapter.ExpandableListAdapter;
-import com.example.healthcontrollsystem.domain.Health;
 import com.example.healthcontrollsystem.domain.OneStatusEntity;
 import com.example.healthcontrollsystem.domain.Record;
-import com.example.healthcontrollsystem.domain.TwoStatusEntity;
 import com.example.healthcontrollsystem.utils.AppConfig;
 import com.example.healthcontrollsystem.utils.KaliluUtils;
+import com.example.healthcontrollsystem.utils.OkHttpUtil;
 import com.example.healthcontrollsystem.utils.RSharePreference;
 import com.example.healthcontrollsystem.utils.StepDetector;
 import com.example.healthcontrollsystem.utils.ToastUtils;
@@ -30,9 +29,12 @@ import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.apache.http.message.BasicNameValuePair;
 
 public class DataCenterFragment extends Fragment{
 
@@ -61,6 +63,17 @@ public class DataCenterFragment extends Fragment{
 	//柱形图数据
 	private BarData data;
 
+	private int indexPage = 0;
+
+	private int pageSize = 7;
+
+	private Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+		}
+	};
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +88,7 @@ public class DataCenterFragment extends Fragment{
 //		elv_data_list.
 		putInitData();
 		init2();
+		getListData(indexPage);
 		return view;
 	}
 
@@ -99,6 +113,8 @@ public class DataCenterFragment extends Fragment{
 					public void run() {
 						//停止下拉刷新
 						xrv_data_center.stopRefresh();
+						indexPage = 0;
+						getListData(indexPage);
 					}
 				}, 2000);
 			}
@@ -110,6 +126,8 @@ public class DataCenterFragment extends Fragment{
 					public void run() {
 						//停止上拉刷新
 						xrv_data_center.stopLoadMore();
+						indexPage = indexPage+1;
+						getListData(indexPage);
 					}
 				}, 2000);
 			}
@@ -125,6 +143,25 @@ public class DataCenterFragment extends Fragment{
 			}
 		});
 
+	}
+
+	//获取列表数据
+	private void getListData(int index){
+		List<BasicNameValuePair> params = new ArrayList<>();
+		params.add(new BasicNameValuePair("user_id",RSharePreference.getInt(AppConfig.USER_ID,getActivity())+""));
+		params.add(new BasicNameValuePair("index",index+""));
+		params.add(new BasicNameValuePair("pageSize",pageSize+""));
+		OkHttpUtil.enqueue(OkHttpUtil.requestPostJson(AppConfig.GETRECORDLIST, params), new Callback() {
+			@Override
+			public void onFailure(Request request, IOException e) {
+
+			}
+
+			@Override
+			public void onResponse(Response response) throws IOException {
+
+			}
+		});
 	}
 
 	private void init2(){

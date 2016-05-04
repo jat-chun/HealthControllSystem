@@ -34,6 +34,22 @@ public class OkHttpUtil {
 	 * @param params
      * @return
      */
+	public static Request requestPostJson(String url, List<BasicNameValuePair> params){
+		FormEncodingBuilder formBody = new FormEncodingBuilder();
+		for (int i = 0; i < params.size(); i++) {
+			formBody.add(params.get(i).getName(), params.get(i).getValue());
+		}
+		RequestBody requestBody = formBody.build();
+		Request request = new Request.Builder().url(url).post(requestBody).build();
+		return request;
+	}
+
+	/**
+	 * 通过传入URL和键值对列表，返回请求
+	 * @param url
+	 * @param params
+	 * @return
+	 */
 	public static Request requestPost(String url,List<BasicNameValuePair> params){
 		FormEncodingBuilder formBody = new FormEncodingBuilder();
 		for (int i = 0; i < params.size(); i++) {
