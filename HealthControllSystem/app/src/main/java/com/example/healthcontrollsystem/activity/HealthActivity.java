@@ -34,7 +34,7 @@ public class HealthActivity extends SmartActivity {
 		Intent intent = getIntent();
 		Bundle bundle = intent.getBundleExtra("bean");
 		enity = (Health) bundle.getSerializable("bean");
-		
+
 		initView();
 		
 	}
