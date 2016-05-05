@@ -26,6 +26,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -67,6 +69,13 @@ public class DataCenterFragment extends Fragment{
 
 	private int pageSize = 7;
 
+	//判断是否第一次加载
+	private Boolean isFirst = true;
+
+	private DbUtils dbUtils;
+
+	List<Record> twoList;
+
 	private Handler handler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -81,6 +90,7 @@ public class DataCenterFragment extends Fragment{
 		// TODO Auto-generated method stub
 		inflater= LayoutInflater.from(getActivity());
 		view = inflater.inflate(R.layout.fragment_data_center, null);
+		dbUtils = DbUtils.create(getActivity());
 		elv_data_list = (ExpandableListView) view.findViewById(R.id.elv_data_list);
 		bc_data_center = (BarChart) view.findViewById(R.id.bc_data_center);
 		xrv_data_center = (XRefreshView)view.findViewById(R.id.xrv_data_center);
@@ -159,11 +169,19 @@ public class DataCenterFragment extends Fragment{
 			@Override
 			public void onFailure(Request request, IOException e) {
 
+				if (isFirst){
+					twoList = new ArrayList<Record>();
+					try {
+						twoList = dbUtils.findAll(Record.class);
+					} catch (DbException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 
 			@Override
 			public void onResponse(Response response) throws IOException {
-
+				isFirst = false;
 			}
 		});
 	}
@@ -219,7 +237,7 @@ public class DataCenterFragment extends Fragment{
 
 		OneStatusEntity oneStatusEntity = new OneStatusEntity();
 
-		List<Record> twoList = new ArrayList<>();
+		twoList = new ArrayList<>();
 		for (int i=0 ; i<6 ; i++){
 			Record record = null;
 			if (i==0){

@@ -56,14 +56,14 @@ public class AutoSaveService extends Service {
     public void onCreate() {
         super.onCreate();
         //判断时间上次开启的时候是不是当天，如果是当天则跳过，否则就上传数据到服务器
-        if (!dateCompile()){
+//        if (!dateCompile()){
             //存进当天日期
             RSharePreference.putString(AppConfig.DATE,DateFormatUtils.dateFormat(System.currentTimeMillis()),this);
             //将步数置0
             RSharePreference.putInt(AppConfig.STEP_TOTAL,0,this);
             //修改计步器里面的步数
             StepDetector.CURRENT_STEP = 0;
-        }
+//        }
     }
 
     //验证时间是不是当天
