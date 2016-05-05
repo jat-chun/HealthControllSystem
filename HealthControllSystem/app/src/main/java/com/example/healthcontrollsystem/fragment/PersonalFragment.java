@@ -64,7 +64,7 @@ public class PersonalFragment extends Fragment{
 	
 	private void initMotion(){
 		if (RSharePreference.getString("user_image", getActivity())==null) {
-			ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.ic_bleed, civ_personal_image);
+			ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.icon, civ_personal_image);
 		}else {
 			ImageLoader.getInstance().displayImage(RSharePreference.getString("user_image", getActivity()), civ_personal_image);
 		}

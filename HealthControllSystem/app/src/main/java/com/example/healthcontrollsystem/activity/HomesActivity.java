@@ -114,7 +114,7 @@ public class HomesActivity extends SmartFragmentActivity implements OnClickListe
 		});
 		civ_homes_image = (CircularImageView) findViewById(R.id.civ_homes_image);
 		if (RSharePreference.getString("user_image", this)==null) {
-			ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.ic_bleed, civ_homes_image);
+			ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.icon, civ_homes_image);
 		}else {
 			ImageLoader.getInstance().displayImage(RSharePreference.getString("user_image", this), civ_homes_image);
 		}
