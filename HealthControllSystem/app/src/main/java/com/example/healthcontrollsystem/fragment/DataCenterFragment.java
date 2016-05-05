@@ -1,9 +1,5 @@
 package com.example.healthcontrollsystem.fragment;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +30,11 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataCenterFragment extends Fragment{
 
@@ -147,11 +147,15 @@ public class DataCenterFragment extends Fragment{
 
 	//获取列表数据
 	private void getListData(int index){
-		List<BasicNameValuePair> params = new ArrayList<>();
-		params.add(new BasicNameValuePair("user_id",RSharePreference.getInt(AppConfig.USER_ID,getActivity())+""));
-		params.add(new BasicNameValuePair("index",index+""));
-		params.add(new BasicNameValuePair("pageSize",pageSize+""));
-		OkHttpUtil.enqueue(OkHttpUtil.requestPostJson(AppConfig.GETRECORDLIST, params), new Callback() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("user_id",RSharePreference.getInt(AppConfig.USER_ID,getActivity()));
+			jsonObject.put("index",index);
+			jsonObject.put("pageSize",pageSize);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		OkHttpUtil.enqueue(OkHttpUtil.requestPostByJson(AppConfig.GETRECORDLIST, jsonObject), new Callback() {
 			@Override
 			public void onFailure(Request request, IOException e) {
 

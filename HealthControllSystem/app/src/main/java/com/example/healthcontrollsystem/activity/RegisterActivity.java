@@ -1,14 +1,5 @@
 package com.example.healthcontrollsystem.activity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -23,12 +14,11 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,14 +33,23 @@ import com.example.healthcontrollsystem.R;
 import com.example.healthcontrollsystem.service.UserInformationService;
 import com.example.healthcontrollsystem.utils.AppConfig;
 import com.example.healthcontrollsystem.utils.DateComparator;
+import com.example.healthcontrollsystem.utils.OkHttpUtil;
 import com.example.healthcontrollsystem.utils.ProgressUploadFile;
-import com.example.healthcontrollsystem.view.CircularImageView;
+import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.tandong.sa.activity.SmartActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 /**
  * 注册
  * @author jat
@@ -556,33 +555,21 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		}
 	}
 	/**
-	 * 验证用户名	
+	 * 验证用户名	是否可用
 	 * @param user_name
 	 * @throws JSONException
 	 */
 	private void confirmName(String user_name) throws JSONException{
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("user_name", user_name);
-		Thread thread = new Thread(new Runnable() {
+		OkHttpUtil.enqueue(OkHttpUtil.requestPostByJson(AppConfig.COMFIRM_USERNAME, jsonObject), new Callback() {
+			@Override
+			public void onFailure(Request request, IOException e) {
+
+			}
 
 			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				RequestBody body = RequestBody.create(JSON, jsonObject.toString());
-
-				Request request = new Request.Builder()
-				.url(AppConfig.BASE_URL+AppConfig.COMFIRM_USERNAME)
-				.post(body)
-				.build();
-
-				Response response = null;
-				try {
-					response = client.newCall(request).execute();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Log.d("messageerror", e.getMessage().toString());
-				}
+			public void onResponse(Response response) throws IOException {
 				Message message = new Message();
 				message.what = 1;
 				try {
@@ -594,9 +581,17 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 				handler.sendMessage(message);
 			}
 		});
-		thread.start();
 	}
-	
+
+	/**
+	 * 注册
+	 * @param user_name
+	 * @param password
+	 * @param phone
+	 * @param age
+	 * @param user_image
+     * @throws Exception
+     */
 	private void register(String user_name,String password,String phone,String age,String user_image) throws Exception{
 		final JSONObject object = new JSONObject();
 		object.put("user_image", user_image);
@@ -605,26 +600,14 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		object.put("user_password", password);
 		object.put("user_sex", sex);
 		object.put("user_phone", phone);
-		Thread thread = new Thread(new Runnable() {
-			
+		OkHttpUtil.enqueue(OkHttpUtil.requestPostByJson(AppConfig.REGISTER, object), new Callback() {
 			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				RequestBody body = RequestBody.create(JSON, object.toString());
+			public void onFailure(Request request, IOException e) {
 
-				Request request = new Request.Builder()
-				.url(AppConfig.BASE_URL+AppConfig.REGISTER)
-				.post(body)
-				.build();
+			}
 
-				Response response = null;
-				try {
-					response = client.newCall(request).execute();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Log.d("messageerror", e.getMessage().toString());
-				}
+			@Override
+			public void onResponse(Response response) throws IOException {
 				Message message = new Message();
 				message.what = 2;
 				try {

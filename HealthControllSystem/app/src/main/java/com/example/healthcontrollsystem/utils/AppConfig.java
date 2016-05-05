@@ -21,17 +21,19 @@ public class AppConfig {
 	public static String WEEK = "week";
 	
 	//上传头像
-	public static String UPLOAD_IMAGE = "ImageUploadServlet";
+	public static String UPLOAD_IMAGE = BASE_URL+"ImageUploadServlet";
 	//验证用户名
-	public static String COMFIRM_USERNAME = "ComfirmUserNameServlet";
+	public static String COMFIRM_USERNAME = BASE_URL+"ComfirmUserNameServlet";
 	//用户注册
-	public static String REGISTER = "RegistersServlet";
+	public static String REGISTER = BASE_URL+"RegistersServlet";
 	//登录
-	public static String USER_LOGIN = "LoginServlet";
+	public static String USER_LOGIN = BASE_URL+"LoginServlet";
 	//分页获取记录
-	public static String GETRECORDLIST = "GetRecordList";
+	public static String GETRECORDLIST = BASE_URL+"GetRecordList";
 	//添加记录
-	public static String ADD_RECORD = "AddRecordServlet";
+	public static String ADD_RECORD = BASE_URL+"AddRecordServlet";
+	//获取个人信息
+	public static String PERSONAL_DETAILS = BASE_URL + "UserDetailsServlet";
 
 	//mac_key
 	public static String MAC_KEY = "mac_key";

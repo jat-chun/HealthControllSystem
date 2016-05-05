@@ -2,13 +2,17 @@ package com.example.healthcontrollsystem.utils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -22,6 +26,8 @@ import com.squareup.okhttp.Response;
 public class OkHttpUtil {
 
 	private static final OkHttpClient mOkHttpClient = new OkHttpClient();
+	//请求头编码格式
+	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	//编码格式
 	private static final String CHARSET_NAME = "utf-8";
 	static{
@@ -32,16 +38,37 @@ public class OkHttpUtil {
 	 * 通过传入URL和键值对列表，返回请求
 	 * @param url
 	 * @param params
-     * @return
-     */
+	 * @return
+	 */
 	public static Request requestPostJson(String url, List<BasicNameValuePair> params){
-		FormEncodingBuilder formBody = new FormEncodingBuilder();
-		for (int i = 0; i < params.size(); i++) {
-			formBody.add(params.get(i).getName(), params.get(i).getValue());
-		}
-		RequestBody requestBody = formBody.build();
-		Request request = new Request.Builder().url(url).post(requestBody).build();
+		RequestBody body = createBody(params);
+		Request request = new Request.Builder().url(url).post(body).build();
 		return request;
+	}
+
+	public static  Request requestPostByJson(String url, JSONObject json){
+		RequestBody body = RequestBody.create(JSON,json.toString());
+		Request request = new Request.Builder().url(url).post(body).build();
+		return request;
+	}
+
+
+	/**
+	 * 讲请求参数封装成json并返回请求体
+	 * @param params
+	 * @return
+     */
+	public static RequestBody createBody( List<BasicNameValuePair> params){
+		JSONObject jsonObject = new JSONObject();
+		try {
+			for (BasicNameValuePair pair : params) {
+				jsonObject.put(pair.getName(),pair.getValue());
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		RequestBody body = RequestBody.create(JSON,jsonObject.toString());
+		return body;
 	}
 
 	/**
@@ -64,8 +91,8 @@ public class OkHttpUtil {
 	 * 通过传入URL和参数键值对列表，返回请求
 	 * @param url
 	 * @param params
-     * @return
-     */
+	 * @return
+	 */
 	public static Request requestGet(String url,List<BasicNameValuePair> params){
 		String getUrl = url+"?"+URLEncodedUtils.format(params, CHARSET_NAME);
 		Request request = new Request.Builder().url(getUrl).build();
@@ -90,31 +117,31 @@ public class OkHttpUtil {
 	public static void enqueue(Request request,Callback responseCallback){
 		mOkHttpClient.newCall(request).enqueue(responseCallback);
 	}
-	
-	
+
+
 	/**
 	 * 开启一部线程访问网络，且不在意返回结果（实现空callback
 	 * @param request
 	 */
 	public static void enqueue(Request request){
 		mOkHttpClient.newCall(request).enqueue(new Callback() {
-			
+
 			@Override
 			public void onResponse(Response arg0) throws IOException {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onFailure(Request arg0, IOException arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
 
-	
+
+
 	/**
 	 *
 	 * 不开启异步线程，返回响应内容
@@ -140,7 +167,7 @@ public class OkHttpUtil {
 	 * @param params
 	 * @return
 	 * @throws Exception
-     */
+	 */
 	public static String getStringFromServerWithParams(String url,List<BasicNameValuePair> params) throws Exception{
 		FormEncodingBuilder formBody = new FormEncodingBuilder();
 		for (int i = 0; i < params.size(); i++) {
@@ -156,7 +183,7 @@ public class OkHttpUtil {
 			throw new IOException("Unexpected code "+response);
 		}
 	}
-	
+
 	/**
 	 * 这里使用了HttpClientde API.只是为了方便
 	 * @param params

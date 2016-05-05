@@ -19,10 +19,17 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 自动验证上传数据到服务器
@@ -69,19 +76,24 @@ public class AutoSaveService extends Service {
      * 上传数据到服务器
      */
     private void postToServer(){
-
         if (RSharePreference.getString(AppConfig.USER_ID,this)==null){
             ToastUtils.showToast("用户没登录，请先登录",this);
         }else {
-            List<BasicNameValuePair> params = new ArrayList<>();
-            //将用户id，步数，日期，卡里路等上传到服务器
-            params.add(new BasicNameValuePair(AppConfig.USER_ID,RSharePreference.getString(AppConfig.USER_ID,AutoSaveService.this)));
-            params.add(new BasicNameValuePair("step", StepDetector.CURRENT_STEP+""));
-            params.add(new BasicNameValuePair(AppConfig.DATE,DateFormatUtils.dateFormat(System.currentTimeMillis())));
-            params.add(new BasicNameValuePair(AppConfig.WEEK,DateFormatUtils.weekFormat()));
-            params.add(new BasicNameValuePair("distance", KaliluUtils.distance(StepDetector.CURRENT_STEP)+""));
+            //将用户id，步数，日期，卡里路等上传到服务器,以键值对的方式，保持请求类型不变
+            //打包请求参数
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put(AppConfig.USER_ID,RSharePreference.getString(AppConfig.USER_ID,AutoSaveService.this));
+                jsonObject.put("step", StepDetector.CURRENT_STEP);
+                jsonObject.put(AppConfig.DATE,DateFormatUtils.dateFormat(System.currentTimeMillis()));
+                jsonObject.put(AppConfig.WEEK,DateFormatUtils.weekFormat());
+                jsonObject.put("kalilu", KaliluUtils.kalilu(RSharePreference.getFloat(AppConfig.WEIGHT,AutoSaveService.this),StepDetector.CURRENT_STEP));
+                jsonObject.put("distance", KaliluUtils.distance(StepDetector.CURRENT_STEP));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             //开启异步服务器提交数据
-            OkHttpUtil.enqueue(OkHttpUtil.requestPostJson(AppConfig.BASE_URL, params), new Callback() {
+            OkHttpUtil.enqueue(OkHttpUtil.requestPostByJson(AppConfig.ADD_RECORD,jsonObject), new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
 
