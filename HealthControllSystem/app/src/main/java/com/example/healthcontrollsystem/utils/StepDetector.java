@@ -7,12 +7,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 /**
- * 实现信号监听的计步的类
+ * 实现信号监听的计步的工具类
  *
- * Created by cj.chen on 2016/4/22.
+ * Created by jat on 2016/4/22.
  */
 public class StepDetector implements SensorEventListener {
-    //现在的步数
+    //记录现在的步数
     public static int CURRENT_STEP = 0;
     //sensitivity灵敏度
     public static float SENSITIVITY = 10;
@@ -48,8 +48,11 @@ public class StepDetector implements SensorEventListener {
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
+        //获取传感器
         Sensor sensor = event.sensor;
+        //锁定传感器
         synchronized (this){
+            //判读传感器类型是不是为重力感应加速度
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER){
                 float vSum = 0;
                 for (int i=0 ; i<3 ; i++){
@@ -92,7 +95,7 @@ public class StepDetector implements SensorEventListener {
 
     }
 
-    //当传感器的经度发生变化时就会调用此方法
+    //当传感器的经度发生变化时就会调用此方法，在这里不需要用到这个类
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
