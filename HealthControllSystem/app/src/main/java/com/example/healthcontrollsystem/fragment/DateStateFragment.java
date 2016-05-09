@@ -68,7 +68,7 @@ public class DateStateFragment extends Fragment {
 			}
 			atv_state_step_num.setText(StepDetector.CURRENT_STEP+"");
 			tv_state_kalilu.setText("您消耗的卡里路为："+ KaliluUtils.kalilu(weight,StepDetector.CURRENT_STEP));
-			bl_state_label.setText("您设定奔跑的距离为"+RSharePreference.getInt(AppConfig.PLAN_STEP,getActivity())+",现在运动了"+KaliluUtils.distance(StepDetector.CURRENT_STEP));
+			bl_state_label.setText("您设定奔跑的距离为"+KaliluUtils.distance(RSharePreference.getInt(AppConfig.PLAN_STEP,getActivity()))+",现在运动了"+KaliluUtils.distance(StepDetector.CURRENT_STEP));
 			if (!flag){
 				dcpg_state_step_count.setValue(StepDetector.CURRENT_STEP);
 			}

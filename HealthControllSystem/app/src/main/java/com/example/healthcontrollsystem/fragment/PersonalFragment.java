@@ -126,6 +126,7 @@ public class PersonalFragment extends Fragment{
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if (RSharePreference.getBoolean(AppConfig.LOGIN, getActivity())) {
+					RSharePreference.putBoolean(AppConfig.LOGIN,false,getActivity());
 					finish();
 				}else {
 					ToastUtils.showToast("您还没登陆", getActivity());
