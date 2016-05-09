@@ -157,6 +157,7 @@ public class DataCenterFragment extends Fragment{
 
 	//获取列表数据
 	private void getListData(int index){
+		//封装请求参数
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put("user_id",RSharePreference.getInt(AppConfig.USER_ID,getActivity()));
@@ -168,7 +169,7 @@ public class DataCenterFragment extends Fragment{
 		OkHttpUtil.enqueue(OkHttpUtil.requestPostByJson(AppConfig.GETRECORDLIST, jsonObject), new Callback() {
 			@Override
 			public void onFailure(Request request, IOException e) {
-
+				//请求失败而且是第一次请求时调用本地缓存数据进行显示
 				if (isFirst){
 					twoList = new ArrayList<Record>();
 					try {

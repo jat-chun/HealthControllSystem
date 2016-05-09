@@ -46,6 +46,7 @@ public class OkHttpUtil {
 		return request;
 	}
 
+	//更加传入参数，封装请求体并返回
 	public static  Request requestPostByJson(String url, JSONObject json){
 		RequestBody body = RequestBody.create(JSON,json.toString());
 		Request request = new Request.Builder().url(url).post(body).build();
