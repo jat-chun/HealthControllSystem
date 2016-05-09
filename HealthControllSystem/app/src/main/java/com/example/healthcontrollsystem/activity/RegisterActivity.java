@@ -434,10 +434,12 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		startActivityForResult(intent, GALLERY_REQUEST_CODE);
 	}
 
-	//保存图片
+	//保存图片，并返回图片相应的uri
 	private Uri saveBitmap(Bitmap bm,boolean save)
 	{
+		//图片路径
 		File tmpDir = new File(Environment.getExternalStorageDirectory() + "/health");
+		//判断次路径是否存在，不存在则新建
 		if(!tmpDir.exists())
 		{
 			tmpDir.mkdir();
@@ -452,6 +454,7 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 				ProgressUploadFile uploadFile = new ProgressUploadFile(RegisterActivity.this, img);
 				uploadFile.upload();
 			}
+			//返回图片的uri
 			return Uri.fromFile(img);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -459,10 +462,12 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		} 
 	}
 
+	//截取URI
 	private Uri convertUri(Uri uri)
 	{
 		InputStream is = null;
 		try {
+			//获取图片流
 			is = getContentResolver().openInputStream(uri);
 			Bitmap bitmap = BitmapFactory.decodeStream(is);
 			is.close();
@@ -476,9 +481,10 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		}
 	}
 
-	//截图
+	//对对应的uri图片进行截图
 	private void startImageZoom(Uri uri)
 	{
+		//调用系统截图工具，设置相应参数，设置截取比例和回调参数
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
 		intent.putExtra("crop", "true");
@@ -487,6 +493,7 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		intent.putExtra("outputX", 150);
 		intent.putExtra("outputY", 150);
 		intent.putExtra("return-data", true);
+		//开启回调模式
 		startActivityForResult(intent, CROP_REQUEST_CODE);
 	}
 

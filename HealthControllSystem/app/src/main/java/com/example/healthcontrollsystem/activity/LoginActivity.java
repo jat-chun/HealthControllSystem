@@ -93,7 +93,7 @@ public class LoginActivity extends SmartActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		if (RSharePreference.getBoolean(AppConfig.LOGIN, this)) {
-			startActivity(new Intent(this, HomesActivity.class));
+			gotoActivity(HomesActivity.class,true);
 			finish();
 		}
 		setContentView(R.layout.activity_login);
