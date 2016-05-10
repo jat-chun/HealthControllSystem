@@ -32,9 +32,11 @@ import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.example.healthcontrollsystem.R;
 import com.example.healthcontrollsystem.service.UserInformationService;
 import com.example.healthcontrollsystem.utils.AppConfig;
+import com.example.healthcontrollsystem.utils.CustomDialog;
 import com.example.healthcontrollsystem.utils.DateComparator;
 import com.example.healthcontrollsystem.utils.OkHttpUtil;
 import com.example.healthcontrollsystem.utils.ProgressUploadFile;
+import com.example.healthcontrollsystem.utils.ToastUtils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -168,7 +170,7 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		setContentView(R.layout.activity_register);
 
 		initView();
-		initMotion();
+//		initMotion();
 
 	}
 	/**
@@ -192,6 +194,20 @@ public class RegisterActivity extends SmartActivity implements OnClickListener{
 		et_register_age = (EditText) findViewById(R.id.et_register_age);
 		head_save = (TextView) findViewById(R.id.head_save);
 		bt_register_submit = (Button) findViewById(R.id.bt_register_submit);
+		bt_register_submit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				final CustomDialog dialog = new CustomDialog(RegisterActivity.this,false);
+				dialog.setShowingMsg("注册成功");
+				dialog.show();
+				dialog.setOnSingleClickListener(new CustomDialog.OnSingleClickListener() {
+					@Override
+					public void onClick() {
+						dialog.dismiss();
+					}
+				});
+			}
+		});
 	}
 
 	/**
