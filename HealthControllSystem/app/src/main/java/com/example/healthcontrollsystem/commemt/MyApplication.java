@@ -3,9 +3,13 @@ package com.example.healthcontrollsystem.commemt;
 import android.app.Application;
 
 import com.example.healthcontrollsystem.R;
+import com.example.healthcontrollsystem.utils.AppConfig;
+import com.example.healthcontrollsystem.utils.Test;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.io.UnsupportedEncodingException;
 
 public class MyApplication extends Application{
 
@@ -16,6 +20,14 @@ public class MyApplication extends Application{
 
 		//初始化imageloader
 		initImageLoader();
+
+		//友盟调用初始化
+		Test test = new Test();
+		try {
+			test.sendMessage(this,AppConfig.YOUMENG_APPKEY);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 初始化imageloader
