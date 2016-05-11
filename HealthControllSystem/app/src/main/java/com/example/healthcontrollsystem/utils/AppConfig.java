@@ -57,4 +57,6 @@ public class AppConfig {
 	public static String THIRD_APPSECRET = "";
 	//小米获取数据连接
 	public static String XIAOMI_URL = "https://hmservice.mi-ae.com.cn/user/summary/getData";
+	//友盟appkey
+	public static  String YOUMENG_APPKEY = "5731f86667e58e7dff001ba2";
 }
