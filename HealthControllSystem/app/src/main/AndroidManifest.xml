@@ -18,6 +18,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--友盟权限-->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
 
 
@@ -59,11 +70,30 @@
         <activity android:name="com.example.healthcontrollsystem.activity.HealthCanKaoActivity" >
         </activity>
         <activity android:name=".activity.PlanActivity"></activity>
+        <!--友盟activity-->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:theme="@style/Theme.UMDefault"
+            android:excludeFromRecents="true"/>
+
+        <!--微信平台-->
+        <!--<activity
+            android:name="com.umeng.soexample.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
         <service android:name="com.example.healthcontrollsystem.service.UserInformationService" >
         </service>
         <service android:name=".service.AutoSaveService"></service>
         <service android:name=".service.StepService"></service>
+
+        <!--设置友盟appid-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5731f86667e58e7dff001ba2" >
+        </meta-data>
 
         <!--//系统时间发生改变时自动通知-->
         <receiver android:name=".receiver.AutoSaveReceiver">
