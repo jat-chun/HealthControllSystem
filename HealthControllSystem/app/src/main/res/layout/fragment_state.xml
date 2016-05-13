@@ -51,6 +51,54 @@
                     />
             </com.github.glomadrian.dashedcircularprogress.DashedCircularProgress>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <com.beardedhen.androidbootstrap.BootstrapLabel
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="7"
+                        android:text="1000"
+                        android:textSize="14sp"
+                        app:roundedCorners="true"
+                        app:bootstrapBrand="info"
+                        />
+                    <com.beardedhen.androidbootstrap.BootstrapLabel
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:textSize="8sp"
+                        android:text="步"
+                        app:roundedCorners="true"
+                        app:bootstrapBrand="info"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                </LinearLayout>
+            </LinearLayout>
+
+
             <com.beardedhen.androidbootstrap.BootstrapLabel
                 android:id="@+id/bl_state_label"
                 android:layout_width="match_parent"
