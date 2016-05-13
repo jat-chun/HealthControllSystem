@@ -8,6 +8,7 @@ import com.example.healthcontrollsystem.utils.Test;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.umeng.socialize.PlatformConfig;
 
 import java.io.UnsupportedEncodingException;
 
@@ -21,6 +22,10 @@ public class MyApplication extends Application{
 		//初始化imageloader
 		initImageLoader();
 
+		//友盟配置微信appid和appsecret
+		PlatformConfig.setWeixin("wx740f4c848d18f218","73013f4aa63eeb224f36e8cc6f518599");
+		//友盟配置qq，qq空间
+		PlatformConfig.setQQZone("1105318371","wvOHsr2I6NakNeMt");
 		//友盟调用初始化
 		Test test = new Test();
 		try {
